@@ -21,3 +21,8 @@ shopt -s histappend
 HISTSIZE=10000
 HISTFILESIZE=20000
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Enable VS Code shell integration (only when running inside VS Code)
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  [[ -f "$(command -v code)" ]] && . "$(code --locate-shell-integration-path bash)"
+fi
