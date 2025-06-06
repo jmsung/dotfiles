@@ -5,10 +5,13 @@
 export TERM=xterm-256color
 export CLICOLOR=1
 
+# Ensure Homebrew’s Ruby (3.x) is first in PATH
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
 # Source modular configs
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
-[ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.private ] && source ~/.private
+[ -f ~/.aliases ]      && source ~/.aliases
+[ -f ~/.private ]      && source ~/.private
 
 # Source secrets securely
 [ -f ~/.secrets/google.env ] && source ~/.secrets/google.env
