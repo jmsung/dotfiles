@@ -10,7 +10,7 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # Source modular configs
 [ -f ~/.bash_prompt ] && source ~/.bash_prompt
-[ -f ~/.aliases ]      && source ~/.aliases
+[ -f ~/.bash_aliases ]      && source ~/.bash_aliases
 [ -f ~/.private ]      && source ~/.private
 
 # Source secrets securely
@@ -29,3 +29,5 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   [[ -f "$(command -v code)" ]] && . "$(code --locate-shell-integration-path bash)"
 fi
+
+. "$HOME/.local/bin/env"
