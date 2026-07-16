@@ -34,9 +34,11 @@ fi
 
 # Upgrade claude-code once/day, in background — fast (no auto-update), non-racy (throttled
 # so many terminals don't fight brew's lock), logged (~/.cache/claude-upg.log).
-{ mkdir -p ~/.cache; s=~/.cache/claude-upg.stamp
-  if [ ! -f "$s" ] || [ -n "$(find "$s" -mtime +1)" ]; then
-    HOMEBREW_NO_AUTO_UPDATE=1 /opt/homebrew/bin/brew upgrade --cask claude-code >~/.cache/claude-upg.log 2>&1
-    touch "$s"
-  fi
-} &
+# Wrapped in an outer subshell so the interactive shell doesn't track the
+# background job and print a "[1]+ Done" notice when it finishes.
+( { mkdir -p ~/.cache; s=~/.cache/claude-upg.stamp
+    if [ ! -f "$s" ] || [ -n "$(find "$s" -mtime +1)" ]; then
+      HOMEBREW_NO_AUTO_UPDATE=1 /opt/homebrew/bin/brew upgrade --cask claude-code >~/.cache/claude-upg.log 2>&1
+      touch "$s"
+    fi
+  } & )
