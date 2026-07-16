@@ -36,10 +36,7 @@ fi
 # so many terminals don't fight brew's lock), logged (~/.cache/claude-upg.log).
 { mkdir -p ~/.cache; s=~/.cache/claude-upg.stamp
   if [ ! -f "$s" ] || [ -n "$(find "$s" -mtime +1)" ]; then
-    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cask claude-code >~/.cache/claude-upg.log 2>&1
+    HOMEBREW_NO_AUTO_UPDATE=1 /opt/homebrew/bin/brew upgrade --cask claude-code >~/.cache/claude-upg.log 2>&1
     touch "$s"
   fi
 } &
-
-# The next line updates PATH for egcli command.
-if [ -f '/Users/jmsung/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/jmsung/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
