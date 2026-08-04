@@ -9,5 +9,9 @@ blue='\[\033[1;34m\]'
 red='\[\033[1;31m\]'
 reset='\[\033[0m\]'
 
+# Display name, not \u: the exe.dev VM's login account is provider-owned (exedev)
+# and can't be renamed without breaking shelley.service. This is cosmetic only.
+prompt_user="jmsung"
+
 # [user@host dir]$   — host in red = remote
-PS1="${white}[${green}\u${white}@${red}\h ${blue}\W${white}]${reset}\$ "
+PS1="${white}[${green}${prompt_user}${white}@${red}\h ${blue}\W${white}]${reset}\$ "
