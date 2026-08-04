@@ -3,7 +3,10 @@
 
 # Optional: iTerm2 integration
 [ -f "${HOME}/.iterm2_shell_integration.bash" ] && source "${HOME}/.iterm2_shell_integration.bash"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew — macOS (/opt/homebrew) or Linuxbrew (/home/linuxbrew), only if installed
+for _b in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
+  [ -x "$_b" ] && eval "$("$_b" shellenv)" && break
+done; unset _b
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -21,4 +24,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# Added by Antigravity (macOS install — skip if absent)
+[ -d "$HOME/.antigravity/antigravity/bin" ] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"

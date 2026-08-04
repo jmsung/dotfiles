@@ -16,17 +16,22 @@ homedir=$1
 dotfiledir=${homedir}/dotfiles
 
 # list of files/folders to symlink in ${homedir}
-files="bash_profile bashrc bash_prompt bash_aliases private"
+files="bash_profile bashrc bash_prompt bash_server_prompt bash_aliases private"
 
 # change to the dotfiles directory
 echo "Changing to the ${dotfiledir} directory"
 cd ${dotfiledir}
 echo "...done"
 
-# create symlinks (will overwrite old dotfiles)
+# create symlinks (will overwrite old dotfiles); skip files not present in the repo
+# (e.g. .private is gitignored, so a fresh clone won't have it — don't make a broken link)
 for file in ${files}; do
-    echo "Creating symlink to $file in home directory."
-    ln -sf ${dotfiledir}/.${file} ${homedir}/.${file}
+    if [ ! -e "${dotfiledir}/.${file}" ]; then
+        echo "Skipping .$file (not present in dotfiles)."
+        continue
+    fi
+    echo "Creating symlink to .$file in home directory."
+    ln -sf "${dotfiledir}/.${file}" "${homedir}/.${file}"
 done
 
 # Download Git Auto-Completion
