@@ -72,6 +72,12 @@ alias localip='ipconfig getifaddr en0'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias path='echo -e ${PATH//:/\n}'
 alias pn='pnpm'
-alias cc='claude --dangerously-skip-permissions'
+# claude-hl paints shell commands in Claude Code's output; plain claude where it isn't built
+if command -v claude-hl >/dev/null 2>&1; then
+    alias cc='claude-hl --dangerously-skip-permissions'
+else
+    alias cc='claude --dangerously-skip-permissions'
+fi
+alias cx='codex --yolo'
 alias cl="clear"
 alias tests="uv run pytest tests -v"
